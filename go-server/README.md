@@ -1,0 +1,6 @@
+-- Simple Go server
+-- Go to the project directory
+-- Run go run ./main.go
+-- server will start listening on port 8080
+-- Submit the form at http://localhost:8080/form.html 
+-- See the result at http://localhost:8080/form
