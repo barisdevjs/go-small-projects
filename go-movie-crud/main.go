@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 type Movie struct {
@@ -45,8 +46,8 @@ func main() {
 	r.HandleFunc("/movies/{id}", updateMovie).Methods("PUT")
 	r.HandleFunc("/movies/{id}", deleteMovie).Methods("DELETE")
 
-	fmt.Print(movies)
-	fmt.Printf("Server listening on 8000\n")
+	fmt.Println(movies)
+	fmt.Printf("Server listening on 8080\n")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
 
