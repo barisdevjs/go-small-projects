@@ -4,12 +4,11 @@ import (
 	"fiber-crm/database"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/jinzhu/gorm"
 	_ "modernc.org/sqlite"
 )
 
 type Lead struct {
-	gorm.Model
+	ID      uint   `gorm:"primaryKey; not null"`
 	Name    string `json:"name"`
 	Company string `json:"company"`
 	Email   string `json:"email"`
