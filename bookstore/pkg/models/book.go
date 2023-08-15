@@ -15,6 +15,10 @@ type Book struct {
 	Publication string `json:"publication"`
 }
 
+func (Book) TableName() string {
+	return "my_books"
+}
+
 func init() {
 	config.Connect()
 	db = config.GetDB()
