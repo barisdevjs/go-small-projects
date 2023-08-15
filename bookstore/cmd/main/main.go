@@ -3,7 +3,6 @@ package main
 import (
 	"bookstore/pkg/config"
 	"bookstore/pkg/routes"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -18,7 +17,5 @@ func main() {
 	routes.RegisterBookStore(r)
 	http.Handle("/", r)
 
-	log.Fatal(http.ListenAndServe(":8080", r)) // Start the HTTP server on port 8080
-	fmt.Print("STARTED")
-
+	log.Fatal(http.ListenAndServe(":8083", r)) // Start the HTTP server on port 8080
 }
