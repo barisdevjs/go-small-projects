@@ -2,19 +2,24 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func DeleteEmployees(c *fiber.Ctx) error {
-	// Get the "ids" parameter from the URL query parameters
-	ids := c.Query("ids")
+type RequestBody struct {
+	IDs []string `json:"ids"`
+}
 
-	// Split the comma-separated IDs into individual IDs
-	idArray := strings.Split(ids, ",")
+func DeleteEmployees(c *fiber.Ctx) error {
+	var reqBody RequestBody
+	if err := c.BodyParser(&reqBody); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Failed to parse request body"})
+	}
+
+	// Get the IDs from the request body
+	idArray := reqBody.IDs
 
 	// Create a slice to hold the ObjectIDs
 	var objectIDs []primitive.ObjectID
