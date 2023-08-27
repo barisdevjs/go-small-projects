@@ -11,7 +11,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -78,37 +77,11 @@ func main() {
 	app := fiber.New()
 
 	app.Get("/employee", GetEmployees)
-
-	app.Post("/employee", func(c *fiber.Ctx) error {
-		collection := mg.Db.Collection("employees")
-
-		employee := new(Employee)
-
-		if err := c.BodyParser(employee); err != nil {
-			return c.Status(400).SendString(err.Error())
-		}
-
-		employee.ID = ""
-
-		insertionResult, err := collection.InsertOne(c.Context(), employee)
-
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
-		}
-
-		filter := bson.D{{Key: "_id", Value: insertionResult.InsertedID}}
-		createdRecord := collection.FindOne(c.Context(), filter)
-
-		createdEmployee := &Employee{}
-		createdRecord.Decode(createdEmployee)
-
-		return c.Status(201).JSON(createdEmployee)
-
-	})
-
-	// app.Post("/employee")
-	// app.Put("/employee/:id")
-	// app.Delete("/employee/:id")
+	app.Get("/employee/:id", GetEmployee)
+	app.Post("/employee", CreateEmployee)
+	app.Delete("/employee/:id", DeleteEmployee)
+	app.Delete("/employee", DeleteEmployees)
+	app.Put("/employee/:id", UpdateEmployee)
 
 	log.Fatal(app.Listen(":8082"))
 
