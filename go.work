@@ -2,7 +2,6 @@ go 1.20
 
 use (
 	./bookstore
-	./docker-gs-ping
 	./fiber-crm
 	./fiber-mongo-hrms
 	./go-movie-crud
