@@ -48,7 +48,7 @@ func Connect() error {
 
 	escapedUser := url.QueryEscape(USER_NAME)
 	escapedPass := url.QueryEscape(DB_PASS)
-	mongoURI := "mongodb+srv://" + escapedUser + ":" + escapedPass + "@cluster0.smzb3os.mongodb.net/?retryWrites=true&w=majority"
+	mongoURI := "mongodb+srv://" + escapedUser + ":" + escapedPass + "@cluster0.smzb3os.mongodb.net/?retryWrites=true&w=majority&directConnection=true"
 
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI).SetServerAPIOptions(serverAPI))
