@@ -37,7 +37,7 @@ func Connect() error {
 	currentWorkDirectory, _ := os.Getwd()
 	fmt.Println("Current working directory:", currentWorkDirectory)
 
-	err := godotenv.Load(".env")
+	err := godotenv.Load(currentWorkDirectory + "/.env")
 	if err != nil {
 		fmt.Println("Error loading .env file:", err)
 		log.Fatal("Error loading .env file 11")
