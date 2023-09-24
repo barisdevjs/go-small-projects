@@ -34,10 +34,15 @@ type Employee struct {
 }
 
 func Connect() error {
+	currentWorkDirectory, _ := os.Getwd()
+	fmt.Println("Current working directory:", currentWorkDirectory)
+
 	err := godotenv.Load(".env")
 	if err != nil {
+		fmt.Println("Error loading .env file:", err)
 		log.Fatal("Error loading .env file 11")
 	}
+
 	USER_NAME = os.Getenv("USER_NAME")
 	DB_PASS = os.Getenv("DB_PASS")
 
