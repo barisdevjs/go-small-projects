@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"regexp"
 	"time"
 
 	"net/url"
@@ -33,12 +34,25 @@ type Employee struct {
 	Age    float64 `json:"age"`
 }
 
-func Connect() error {
-	err := godotenv.Load()
+var projectDirName = "fiber-mongo-hrms"
+
+func loadEnv() {
+	projectName := regexp.MustCompile(`^(.*` + projectDirName + `)`)
+	currentWorkDirectory, _ := os.Getwd()
+	rootPath := projectName.Find([]byte(currentWorkDirectory))
+
+	err := godotenv.Load(string(rootPath) + `/.env`)
+
 	if err != nil {
-		log.Fatal("Error loading .env file 11")
-		fmt.Println(err)
+		log.Fatalf("Error loading .env file: %v", err)
 	}
+
+	USER_NAME = os.Getenv("USER_NAME")
+	DB_PASS = os.Getenv("DB_PASS")
+}
+
+func Connect() error {
+	loadEnv()
 	USER_NAME = os.Getenv("USER_NAME")
 	DB_PASS = os.Getenv("DB_PASS")
 
