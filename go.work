@@ -4,8 +4,11 @@ use (
 	./bookstore
 	./fiber-crm
 	./fiber-mongo-hrms
+	./file-encrypter
 	./go-movie-crud
 	./go-server
 	./hellogo
 	./mystrings
+	./rssagg
+	./website-health-checker
 )
